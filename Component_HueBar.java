@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
@@ -18,8 +17,6 @@ public class Component_HueBar extends Component{
 			g.setColor(panel.convertColor((int)(1530/height*i), 100, 100));
 			g.fillRect(1, 1 + i, width, 1);
 		}
-		g.setColor(Color.black);
-		g.fillRect(1, barY+y, width, 1);
 		return image;
 	}
 	
@@ -30,8 +27,6 @@ public class Component_HueBar extends Component{
 			g.setColor(panel.convertColor((int)(1530/height*i), 100, 100));
 			g.fillRect(1, 1 + i, width, 1);
 		}
-		g.setColor(Color.black);
-		g.fillRect(1, barY+y, width, 1);
 		return image;
 	}
 			

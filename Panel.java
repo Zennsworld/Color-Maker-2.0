@@ -17,6 +17,7 @@ public class Panel extends JPanel {
 	Component_BrightnessBar brightnessbar;
 	Component_TextBox_Hue  textboxhue;
 	Component_TextBox_Sateration  textboxsateration;
+	Component_TextBox_Brightness  textboxbrightness;
 	
 	Component [] components;
 	
@@ -29,7 +30,8 @@ public class Panel extends JPanel {
 		saterationbar = new Component_SaterationBar(0, 410, 400, 25, true, this),
 		brightnessbar = new Component_BrightnessBar(0, 445, 400, 25, true, this),
 		textboxhue = new Component_TextBox_Hue(445, 0, 75, 25, true, this, "H", 0),
-		textboxhue = new Component_TextBox_Hue(445, 35, 75, 25, true, this, "S", 0),
+		textboxsateration = new Component_TextBox_Sateration(445, 35, 75, 25, true, this, "S", 0),
+		textboxbrightness = new Component_TextBox_Brightness(445, 70, 75, 25, true, this, "B", 0),
 		};
 		components = tempComponents;
 		@SuppressWarnings("unused")
@@ -38,11 +40,9 @@ public class Panel extends JPanel {
 	
 	public void paintComponent (Graphics g){
 		super.paintComponent(g);
-		
 		for (int i=0;i<components.length;i++){
 			g.drawImage(components[i].draw(), components[i].x, components[i].y,null);
 		}
-		
 	}
 	
 	public Color convertColor (int hue, int bri, int sat){
@@ -74,7 +74,7 @@ public class Panel extends JPanel {
 			R = (hue - 1020);
 			G = 0;
 			B = 255;
-		} else if (hue < 1530) {
+		} else if (hue <= 1530) {
 			R = 255;
 			G = 0;
 			B = 255 - (hue - 1275);
