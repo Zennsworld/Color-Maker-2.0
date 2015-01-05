@@ -1,4 +1,3 @@
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 
@@ -13,12 +12,7 @@ public class Component_TextBox_Sateration extends Component_TextBox {
 		value = panel.sateration;
 		return image;
 	}
-	
-	public void keyPressed (KeyEvent e){
-		super.keyPressed(e);
-		universalKeyPressed (e);
-	}
-	
+
 	public void keyEnter(){
 		if (value > 100){
 			value = 100;

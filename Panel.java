@@ -6,9 +6,6 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class Panel extends JPanel {
 	
-	float R = 0;
-	float G = 0;
-	float B = 0;
 	
 	int hue = 0;
 	int brightness = 0;
@@ -39,9 +36,9 @@ public class Panel extends JPanel {
 		textboxhue = new Component_TextBox_Hue(445, 0, 75, 25, true, this, "H", 0),
 		textboxsateration = new Component_TextBox_Sateration(445, 35, 75, 25, true, this, "S", 0),
 		textboxbrightness = new Component_TextBox_Brightness(445, 70, 75, 25, true, this, "B", 0),
-		textboxred = new Component_TextBox_RGB(445, 105, 75, 25, true, this, "R", 0, true, false, false),
-		textboxgreen = new Component_TextBox_RGB(445, 140, 75, 25, true, this, "G", 0, false, true, false),
-		textboxblue = new Component_TextBox_RGB(445, 175, 75, 25, true, this, "B", 0, false, false, true),
+		textboxred = new Component_TextBox_RGB(445, 105, 75, 25, true, this, "R", 0, 0),
+		textboxgreen = new Component_TextBox_RGB(445, 140, 75, 25, true, this, "G", 0, 1),
+		textboxblue = new Component_TextBox_RGB(445, 175, 75, 25, true, this, "B", 0, 2),
 		};
 		components = tempComponents;
 		@SuppressWarnings("unused")
@@ -56,7 +53,11 @@ public class Panel extends JPanel {
 	}
 	
 	public Color convertColor (int hue, int bri, int sat){
-		Color color;
+		Color color = null;
+		float R = 0;
+		float G = 0;
+		float B = 0;
+		
 		float R0 = 0;
 		float G0 = 0;
 		float B0 = 0;
@@ -123,31 +124,33 @@ public class Panel extends JPanel {
 		B = 255 - B;
 		sateration = (int) (sat * 100);
 		brightness = (int) (bri * 100);
-		System.out.println(sat + " " + bri);
 		if (R != G && G != B && B != R){
 			if (R  == 255 && G < 255) {
 				hue = (int)(G);
 			} else if (G == 255 && R < 255) {
-				hue = 255 + (int)(R);
+				hue = 510 - (int)(R);
 			} else if (G == 255 && B < 255) {
 				hue = 510 + (int)(B);
 			} else if (B == 255 && G < 255) {
-				hue = 765 + (int)(G);
+				hue = 1020 - (int)(G);
 			} else if (B == 255 && R <255) {
 				hue = 1020 + (int)(R);
 			} else if (R == 255 && B < 255) {
-				hue = 1275 + (int)(B);
+				hue = 1530 - (int)(B);
 			}
 		} else {
 			hue = 0;
 		}
+		System.err.println(sateration + " " + brightness);
+		System.err.println(R + " " + G + " " + B);
+		convertColor(hue, sateration, brightness);
 	}
 	
 	public float findGreatestRGB (float R, float G, float B){
 		float greatest;
-		if (R <= G && R <= B){
+		if (R >= G && R >= B){
 			greatest = R;
-		} else if (G <=R && G <= B){
+		} else if (G >= R && G >= B){
 			greatest = G;			
 		} else {
 			greatest = B;

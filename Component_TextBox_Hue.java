@@ -1,4 +1,3 @@
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 
@@ -12,11 +11,6 @@ public class Component_TextBox_Hue extends Component_TextBox {
 		super.drawRegular();
 		value = (int) (panel.hue / 4.25);
 		return image;
-	}
-	
-	public void keyPressed (KeyEvent e){
-		super.keyPressed(e);
-		universalKeyPressed (e);
 	}
 	
 	public void keyEnter(){

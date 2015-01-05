@@ -39,16 +39,6 @@ public class Component_TextBox extends Component {
 	}
 
 	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == 10){
-			keyEnter();
-		}
-	}
-	
-	public void keyEnter (){
-		
-	}
-	
-	public void universalKeyPressed (KeyEvent e){		
 		if (Character.isDigit(e.getKeyChar())) {
 			char[] valuesCopy = values;
 			values = new char[valuesCopy.length + 1];
@@ -59,5 +49,12 @@ public class Component_TextBox extends Component {
 			String tempString = String.copyValueOf(values);
 			value = Integer.parseInt(tempString);
 		}
+		if (e.getKeyCode() == 10){
+			keyEnter();
+		}
+	}
+	
+	public void keyEnter (){
+		
 	}
 }

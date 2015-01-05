@@ -1,53 +1,62 @@
-import java.awt.event.KeyEvent;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 
 public class Component_TextBox_RGB extends Component_TextBox {
 
-	boolean setRed;
-	boolean setGreen;
-	boolean setBlue;
+	int set;
 	
-	public Component_TextBox_RGB(int x, int y, int w, int h, boolean hitbox, Panel panel, String name, int value, boolean setR, boolean setG, boolean setB) {
+	public Component_TextBox_RGB(int x, int y, int w, int h, boolean hitbox, Panel panel, String name, int value, int set) {
 		super(x, y, w, h, hitbox, panel, name, value);
-		setRed = setR;
-		setGreen = setG;
-		setBlue = setB;
+		this.set = set;
 	}
 	
 	public BufferedImage drawRegular (){
+		Color color = panel.convertColor(panel.hue, panel.brightness, panel.sateration);
 		super.drawRegular();
-		if (setRed){
-			value = (int) (panel.R);
-		} else if (setGreen){
-			value = (int) (panel.G);
-		} else if (setBlue){
-			value = (int) (panel.B);
+		switch(set){
+		case (0):
+			value = color.getRed();
+		break;
+		case (1):
+			value = color.getGreen();
+		break;
+		case (2):
+			value = color.getBlue();
+		break;
 		}
 		return image;
 	}
 	
-	public void keyPressed (KeyEvent e){
-		super.keyPressed(e);
-		universalKeyPressed (e);
-	}
-	
 	public void keyEnter(){
+		
+		float R = panel.convertColor(panel.hue, panel.brightness, panel.sateration).getRed();
+		float G = panel.convertColor(panel.hue, panel.brightness, panel.sateration).getGreen();
+		float B = panel.convertColor(panel.hue, panel.brightness, panel.sateration).getBlue();
+		
 		if (value > 255){
-			if (setRed){
-				panel.setHSBfromRGB(255, panel.R, panel.B);
-			} else if (setGreen){
-				panel.setHSBfromRGB(panel.R, 255, panel.B);
-			} else if (setBlue){
-				panel.setHSBfromRGB(panel.R, panel.G, 255);
+			switch(set){
+			case (0):
+				panel.setHSBfromRGB(255, R, B);
+			break;
+			case (1):
+				panel.setHSBfromRGB(R, 255, B);
+			break;
+			case (2):
+				panel.setHSBfromRGB(R, G, 255);
+			break;
 			}
 		} else {
-			if (setRed){
-				panel.setHSBfromRGB(value, panel.R, panel.B);
-			} else if (setGreen){
-				panel.setHSBfromRGB(panel.R, value, panel.B);
-			} else if (setBlue){
-				panel.setHSBfromRGB(panel.R, panel.G, value);
+			switch(set){
+			case (0):
+				panel.setHSBfromRGB(value, R, B);
+			break;
+			case (1):
+				panel.setHSBfromRGB(R, value, B);
+			break;
+			case (2):
+				panel.setHSBfromRGB(R, G, value);
+			break;
 			}	
 		}
 	}
